@@ -6,6 +6,7 @@
     <title>BiGeo - Empowering Rural Producers, Connecting Urban Demand</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -60,6 +61,49 @@
                 <span>↓</span>
             </div>
         </div>
+
+        <!-- Join the BiGeo Revolution Section (MOVED HERE) -->
+        <section id="role-selection" class="section revolution-section">
+            <div class="particles-background" id="particles-bg"></div>
+            <div class="container">
+                <h2 class="section-title centered revolution-title">Join the BiGeo Revolution</h2>
+                <p class="revolution-subtitle">Choose your role and start transforming rural commerce today</p>
+                <div class="role-selection-grid revolution-grid">
+                    <button class="role-card role-card-producer" data-role="producer">
+                        <div class="role-card-glow"></div>
+                        <span class="role-icon">🏺</span>
+                        <span class="role-label">Producer</span>
+                        <span class="role-label-te">ఉత్పత్తిదారు</span>
+                        <span class="role-description">Register &amp; track your handcrafted products</span>
+                        <span class="role-cta">Enter Dashboard →</span>
+                    </button>
+                    <button class="role-card role-card-rca" data-role="rca">
+                        <div class="role-card-glow"></div>
+                        <span class="role-icon">🚚</span>
+                        <span class="role-label">RCA Agent</span>
+                        <span class="role-label-te">RCA ఏజెంట్</span>
+                        <span class="role-description">Collect products from villages</span>
+                        <span class="role-cta">Enter Dashboard →</span>
+                    </button>
+                    <button class="role-card role-card-hub" data-role="hub">
+                        <div class="role-card-glow"></div>
+                        <span class="role-icon">🏢</span>
+                        <span class="role-label">Hub Operator</span>
+                        <span class="role-label-te">హబ్ ఆపరేటర్</span>
+                        <span class="role-description">Quality control &amp; sorting</span>
+                        <span class="role-cta">Enter Dashboard →</span>
+                    </button>
+                    <button class="role-card role-card-consumer" data-role="consumer">
+                        <div class="role-card-glow"></div>
+                        <span class="role-icon">🛍️</span>
+                        <span class="role-label">Consumer</span>
+                        <span class="role-label-te">కస్టమర్</span>
+                        <span class="role-description">Shop authentic rural products</span>
+                        <span class="role-cta">Enter Dashboard →</span>
+                    </button>
+                </div>
+            </div>
+        </section>
 
         <!-- About Section -->
         <section id="about" class="section about-section">
@@ -234,39 +278,7 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section id="role-selection" class="section cta-section">
-            <div class="container">
-                <h2 class="section-title centered" style="color: white;">Join the BiGeo Revolution</h2>
-                <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: var(--space-32); font-size: var(--font-size-lg);">Choose your role to get started</p>
-                <div class="role-selection-grid">
-                    <button class="role-card" data-role="producer">
-                        <span class="role-icon">🏺</span>
-                        <span class="role-label">Producer Dashboard</span>
-                        <span class="role-label-te">ఉత్పత్తిదారు డాష్‌బోర్డ్</span>
-                        <span class="role-description">Register &amp; track your handcrafted products</span>
-                    </button>
-                    <button class="role-card" data-role="rca">
-                        <span class="role-icon">🚚</span>
-                        <span class="role-label">RCA Dashboard</span>
-                        <span class="role-label-te">RCA డాష్‌బోర్డ్</span>
-                        <span class="role-description">Collect products from villages</span>
-                    </button>
-                    <button class="role-card" data-role="hub">
-                        <span class="role-icon">🏢</span>
-                        <span class="role-label">Hub Operator Dashboard</span>
-                        <span class="role-label-te">హబ్ ఆపరేటర్ డాష్‌బోర్డ్</span>
-                        <span class="role-description">Quality control &amp; sorting</span>
-                    </button>
-                    <button class="role-card" data-role="consumer">
-                        <span class="role-icon">🛍️</span>
-                        <span class="role-label">Consumer Dashboard</span>
-                        <span class="role-label-te">కస్టమర్ డాష్‌బోర్డ్</span>
-                        <span class="role-description">Shop authentic rural products</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Footer -->
         <footer class="footer">
@@ -312,7 +324,21 @@
     </section>
 
     <!-- Producer Dashboard -->
-    <section id="producer-dashboard" class="dashboard" style="display: none;">
+    <section id="producer-dashboard" class="dashboard dashboard-producer" style="display: none;">
+        <div class="dashboard-particles" id="producer-particles"></div>
+        <div class="dashboard-header-banner">
+            <h2 class="dashboard-welcome">Welcome, Producer! 🏺</h2>
+            <p class="dashboard-subtitle">Manage your products and track earnings</p>
+        </div>
+        
+        <!-- Dashboard Tabs -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="switchTab('producer', 'main')">Main Dashboard</button>
+            <button class="tab-btn" onclick="switchTab('producer', 'analytics')">📊 Analytics</button>
+        </div>
+        
+        <!-- Main Dashboard -->
+        <div id="producer-main-tab" class="tab-content active">
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card__header">
@@ -348,14 +374,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" data-translate="location">Location</label>
-                            <select class="form-control" id="prod-location" required>
-                                <option value="Raghavapuram">Raghavapuram</option>
-                                <option value="Peddapur">Peddapur</option>
-                                <option value="Kondapalli">Kondapalli</option>
-                                <option value="Muppavarapu">Muppavarapu</option>
-                                <option value="Nadukuru">Nadukuru</option>
-                            </select>
+                            <label class="form-label" data-translate="location">Village Location</label>
+                            <div class="location-input-group">
+                                <input type="text" class="form-control" id="prod-location" readonly placeholder="Click to select location" required>
+                                <button type="button" class="btn-icon" onclick="openLocationPicker(function(loc) { document.getElementById('prod-location').value = loc.address; document.getElementById('prod-location-coords').value = JSON.stringify(loc); })">
+                                    📍 Select on Map
+                                </button>
+                            </div>
+                            <input type="hidden" id="prod-location-coords">
                         </div>
                         <div class="form-group">
                             <label class="form-label" data-translate="pickup-date">Expected Pickup Date</label>
@@ -430,10 +456,91 @@
                 </div>
             </div>
         </div>
+        </div>
+        
+        <!-- Analytics Tab -->
+        <div id="producer-analytics-tab" class="tab-content" style="display: none;">
+            <div class="analytics-header">
+                <h2>Analytics Dashboard</h2>
+                <div class="date-filter">
+                    <select id="producer-time-range" class="form-control form-control--sm">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option selected>Last 3 Months</option>
+                        <option>Last 6 Months</option>
+                        <option>Last Year</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-value" id="producer-kpi-revenue">0</div>
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-change positive">+15%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-value" id="producer-kpi-products">0</div>
+                    <div class="kpi-label">Total Products</div>
+                    <div class="kpi-change positive">+8%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⭐</div>
+                    <div class="kpi-value" id="producer-kpi-rating">0</div>
+                    <div class="kpi-label">Avg. Rating</div>
+                    <div class="kpi-change positive">+0.2</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-value" id="producer-kpi-customers">0</div>
+                    <div class="kpi-label">Repeat Customers</div>
+                    <div class="kpi-change positive">+12%</div>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Sales Performance</h3>
+                    <canvas id="producer-sales-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Product Categories</h3>
+                    <canvas id="producer-category-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Order Status</h3>
+                    <canvas id="producer-status-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Monthly Product Listings</h3>
+                    <canvas id="producer-listings-chart"></canvas>
+                </div>
+                <div class="chart-card full-width">
+                    <h3>Top Performing Products</h3>
+                    <canvas id="producer-top-products-chart"></canvas>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- RCA Dashboard -->
-    <section id="rca-dashboard" class="dashboard" style="display: none;">
+    <section id="rca-dashboard" class="dashboard dashboard-rca" style="display: none;">
+        <div class="dashboard-particles" id="rca-particles"></div>
+        <div class="dashboard-header-banner">
+            <h2 class="dashboard-welcome">Welcome, RCA Agent! 🚚</h2>
+            <p class="dashboard-subtitle">Collect and dispatch products efficiently</p>
+        </div>
+        
+        <!-- Dashboard Tabs -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="switchTab('rca', 'main')">Main Dashboard</button>
+            <button class="tab-btn" onclick="switchTab('rca', 'analytics')">📊 Analytics</button>
+        </div>
+        
+        <!-- Main Dashboard -->
+        <div id="rca-main-tab" class="tab-content active">
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card__header">
@@ -534,10 +641,89 @@
                 </div>
             </div>
         </div>
+        </div>
+        
+        <!-- Analytics Tab -->
+        <div id="rca-analytics-tab" class="tab-content" style="display: none;">
+            <div class="analytics-header">
+                <h2>Analytics Dashboard</h2>
+                <div class="date-filter">
+                    <select id="rca-time-range" class="form-control form-control--sm">
+                        <option>Last 7 Days</option>
+                        <option selected>Last 30 Days</option>
+                        <option>Last 3 Months</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-value" id="rca-kpi-collections">0</div>
+                    <div class="kpi-label">Total Collections</div>
+                    <div class="kpi-change positive">+18%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🚗</div>
+                    <div class="kpi-value" id="rca-kpi-distance">0</div>
+                    <div class="kpi-label">Distance (km)</div>
+                    <div class="kpi-change positive">+120 km</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-value" id="rca-kpi-daily">0</div>
+                    <div class="kpi-label">Avg. Daily Collections</div>
+                    <div class="kpi-change positive">+2</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⏱️</div>
+                    <div class="kpi-value" id="rca-kpi-ontime">0</div>
+                    <div class="kpi-label">On-time Rate</div>
+                    <div class="kpi-change positive">+5%</div>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Daily Collections Trend</h3>
+                    <canvas id="rca-collections-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Collection by Village</h3>
+                    <canvas id="rca-village-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Pickup Status Distribution</h3>
+                    <canvas id="rca-status-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Distance Covered (Weekly)</h3>
+                    <canvas id="rca-distance-chart"></canvas>
+                </div>
+                <div class="chart-card full-width">
+                    <h3>Product Category Collections</h3>
+                    <canvas id="rca-category-chart"></canvas>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Hub Operator Dashboard -->
-    <section id="hub-dashboard" class="dashboard" style="display: none;">
+    <section id="hub-dashboard" class="dashboard dashboard-hub" style="display: none;">
+        <div class="dashboard-particles" id="hub-particles"></div>
+        <div class="dashboard-header-banner">
+            <h2 class="dashboard-welcome">Welcome, Hub Operator! 🏢</h2>
+            <p class="dashboard-subtitle">Quality control and logistics management</p>
+        </div>
+        
+        <!-- Dashboard Tabs -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="switchTab('hub', 'main')">Main Dashboard</button>
+            <button class="tab-btn" onclick="switchTab('hub', 'analytics')">📊 Analytics</button>
+        </div>
+        
+        <!-- Main Dashboard -->
+        <div id="hub-main-tab" class="tab-content active">
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card__header">
@@ -633,10 +819,89 @@
                 </div>
             </div>
         </div>
+        </div>
+        
+        <!-- Analytics Tab -->
+        <div id="hub-analytics-tab" class="tab-content" style="display: none;">
+            <div class="analytics-header">
+                <h2>Analytics Dashboard</h2>
+                <div class="date-filter">
+                    <select id="hub-time-range" class="form-control form-control--sm">
+                        <option>Last 7 Days</option>
+                        <option selected>Last 30 Days</option>
+                        <option>Last 3 Months</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-icon">✅</div>
+                    <div class="kpi-value" id="hub-kpi-processed">0</div>
+                    <div class="kpi-label">Total Processed</div>
+                    <div class="kpi-change positive">+25%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">⏱️</div>
+                    <div class="kpi-value" id="hub-kpi-time">0</div>
+                    <div class="kpi-label">Avg. Processing Time</div>
+                    <div class="kpi-change positive">-2 hrs</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🎯</div>
+                    <div class="kpi-value" id="hub-kpi-quality">0</div>
+                    <div class="kpi-label">Quality Pass Rate</div>
+                    <div class="kpi-change positive">+3%</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-value" id="hub-kpi-utilization">0</div>
+                    <div class="kpi-label">Hub Utilization</div>
+                    <div class="kpi-change positive">+8%</div>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Incoming vs Outgoing</h3>
+                    <canvas id="hub-flow-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Quality Score Distribution</h3>
+                    <canvas id="hub-quality-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Processing Time Trend</h3>
+                    <canvas id="hub-processing-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Destination Cities</h3>
+                    <canvas id="hub-destination-chart"></canvas>
+                </div>
+                <div class="chart-card full-width">
+                    <h3>Product Condition on Arrival</h3>
+                    <canvas id="hub-condition-chart"></canvas>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Consumer Dashboard -->
-    <section id="consumer-dashboard" class="dashboard" style="display: none;">
+    <section id="consumer-dashboard" class="dashboard dashboard-consumer" style="display: none;">
+        <div class="dashboard-particles" id="consumer-particles"></div>
+        <div class="dashboard-header-banner">
+            <h2 class="dashboard-welcome">Welcome, Shopper! 🛍️</h2>
+            <p class="dashboard-subtitle">Discover authentic rural products</p>
+        </div>
+        
+        <!-- Dashboard Tabs -->
+        <div class="dashboard-tabs">
+            <button class="tab-btn active" onclick="switchTab('consumer', 'main')">Shop Products</button>
+            <button class="tab-btn" onclick="switchTab('consumer', 'analytics')">📊 My Analytics</button>
+        </div>
+        
+        <!-- Main Dashboard -->
+        <div id="consumer-main-tab" class="tab-content active">
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card__header">
@@ -667,16 +932,64 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card__header">
-                    <h2>Live Route Tracking</h2>
-                </div>
-                <div class="card__body">
-                    <div id="consumer-map" class="map-container"></div>
-                    <div class="delivery-info" style="margin-top: 1rem;">
-                        <p><strong>Driver:</strong> <span id="driver-name">Vijay Kumar</span></p>
-                        <p><strong>Contact:</strong> <span id="driver-phone">+91 98765 00000</span></p>
-                        <p><strong>ETA:</strong> <span id="delivery-eta">25 minutes</span></p>
+            <div class="card" style="grid-column: 1 / -1;">
+                <div class="tracking-map-container">
+                    <div class="tracking-header">
+                        <h2>Live Delivery Tracking</h2>
+                        <div class="tracking-info">
+                            <div class="info-item">
+                                <span class="label">ETA:</span>
+                                <span class="value" id="consumer-eta">25 minutes</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Distance:</span>
+                                <span class="value" id="consumer-distance">8.5 km</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Status:</span>
+                                <span class="badge badge-enroute">En Route</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="consumer-map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
+                    
+                    <div class="tracking-details">
+                        <div class="location-card">
+                            <div class="icon">📍</div>
+                            <div class="details">
+                                <h4>Pickup Location</h4>
+                                <p>Raghavapuram Village, Andhra Pradesh</p>
+                                <span class="timestamp">Picked up at 10:30 AM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card">
+                            <div class="icon">🏭</div>
+                            <div class="details">
+                                <h4>Hub Location</h4>
+                                <p>Vijayawada Hub, Andhra Pradesh</p>
+                                <span class="timestamp">Processed at 12:45 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card active">
+                            <div class="icon">🚚</div>
+                            <div class="details">
+                                <h4>Current Location</h4>
+                                <p id="consumer-current-location">NH16, Near Gannavaram</p>
+                                <span class="timestamp" id="consumer-current-time">Now</span>
+                            </div>
+                        </div>
+                        
+                        <div class="location-card pending">
+                            <div class="icon">🏠</div>
+                            <div class="details">
+                                <h4>Delivery Location</h4>
+                                <p>Hitech City, Hyderabad, Telangana</p>
+                                <span class="timestamp">Est. arrival: 2:30 PM</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -687,6 +1000,15 @@
                 </div>
                 <div class="card__body">
                     <form id="delivery-confirm-form">
+                        <div class="form-group">
+                            <label class="form-label">Delivery Address</label>
+                            <div class="location-input-group">
+                                <input type="text" class="form-control" id="consumer-address" readonly placeholder="Click to select location">
+                                <button type="button" class="btn-icon" onclick="openLocationPicker(function(loc) { document.getElementById('consumer-address').value = loc.address; })">
+                                    📍 Select on Map
+                                </button>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="form-label">Order ID</label>
                             <input type="text" class="form-control" id="confirm-order-id" placeholder="BG-ORD-XXXX" required>
@@ -714,7 +1036,113 @@
                 </div>
             </div>
         </div>
+        </div>
+        
+        <!-- Analytics Tab -->
+        <div id="consumer-analytics-tab" class="tab-content" style="display: none;">
+            <div class="analytics-header">
+                <h2>My Shopping Analytics</h2>
+                <div class="date-filter">
+                    <select id="consumer-time-range" class="form-control form-control--sm">
+                        <option>Last Month</option>
+                        <option selected>Last 3 Months</option>
+                        <option>Last 6 Months</option>
+                        <option>Last Year</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-icon">🛒</div>
+                    <div class="kpi-value" id="consumer-kpi-orders">0</div>
+                    <div class="kpi-label">Total Orders</div>
+                    <div class="kpi-change positive">+7 orders</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-value" id="consumer-kpi-spent">₹0</div>
+                    <div class="kpi-label">Total Spent</div>
+                    <div class="kpi-change positive">+₹12,500</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-value" id="consumer-kpi-avg">₹0</div>
+                    <div class="kpi-label">Avg. Order Value</div>
+                    <div class="kpi-change positive">+₹180</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">💵</div>
+                    <div class="kpi-value" id="consumer-kpi-savings">₹0</div>
+                    <div class="kpi-label">Total Savings</div>
+                    <div class="kpi-change positive">13%</div>
+                </div>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Monthly Spending</h3>
+                    <canvas id="consumer-spending-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Orders by Status</h3>
+                    <canvas id="consumer-status-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Category Preferences</h3>
+                    <canvas id="consumer-preference-chart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Delivery Performance</h3>
+                    <canvas id="consumer-delivery-chart"></canvas>
+                </div>
+                <div class="chart-card full-width">
+                    <h3>Favorite Villages</h3>
+                    <canvas id="consumer-villages-chart"></canvas>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <!-- Location Picker Modal -->
+    <div id="location-picker-modal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeLocationPicker()"></div>
+        <div class="modal-content location-picker">
+            <div class="modal-header">
+                <h2>Select Location</h2>
+                <button class="modal-close" onclick="closeLocationPicker()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="location-search" 
+                        placeholder="Search for a location..."
+                        class="search-input"
+                    />
+                    <button class="search-btn" onclick="searchLocations()">🔍</button>
+                </div>
+                
+                <div class="location-suggestions" id="location-suggestions" style="display: none;">
+                    <!-- Populated with search results -->
+                </div>
+                
+                <div id="location-map" style="height: 400px; width: 100%; border-radius: 8px; margin: 16px 0;"></div>
+                
+                <div class="selected-location-display">
+                    <p><strong>Selected Location:</strong></p>
+                    <p id="selected-address">Click on the map to select a location</p>
+                    <p class="coordinates" id="selected-coordinates"></p>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn--secondary" onclick="closeLocationPicker()">Cancel</button>
+                <button class="btn btn--primary" onclick="confirmLocation()">Confirm Location</button>
+            </div>
+        </div>
+    </div>
 
     <!-- QR Scanner Modal -->
     <div id="qr-modal" class="modal">
