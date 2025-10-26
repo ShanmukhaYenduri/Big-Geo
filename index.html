@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiGeo - Empowering Rural Producers, Connecting Urban Demand</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header" class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button id="back-home-btn" class="btn-icon" title="Back to Home" style="display: none;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </button>
+                <h1 class="logo">BiGeo</h1>
+                <span id="dashboard-title" class="dashboard-name"></span>
+            </div>
+            <div class="header-right">
+                <button id="lang-toggle" class="btn btn--secondary btn--sm">తెలుగు</button>
+                <button id="offline-toggle" class="btn btn--secondary btn--sm">Offline Mode</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Offline Banner -->
+    <div id="offline-banner" class="offline-banner" style="display: none;">
+        ⚠️ <span data-translate="offline-message">Working in offline mode - data will sync when online</span>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Landing Page -->
+    <section id="landing-page" class="landing-page">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content fade-in-up">
+                <h1 class="hero-tagline">Empowering Rural Producers, Connecting Urban Demand</h1>
+                <p class="hero-subtitle">
+                    Bridging the gap between rural MSMEs and urban markets through seamless logistics
+                </p>
+                <div class="hero-cta-buttons">
+                    <button class="btn-hero btn-hero--primary" onclick="scrollToSection('role-selection')">Start Selling</button>
+                    <button class="btn-hero btn-hero--secondary" onclick="scrollToSection('products-showcase')">Shop Now</button>
+                </div>
+            </div>
+            <div class="hero-background">
+                <div class="floating-shape shape-1"></div>
+                <div class="floating-shape shape-2"></div>
+                <div class="floating-shape shape-3"></div>
+                <div class="floating-shape shape-4"></div>
+            </div>
+            <div class="scroll-indicator" onclick="scrollToSection('about')">
+                <span>↓</span>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section">
+            <div class="container">
+                <div class="section-content">
+                    <div class="about-graphic scroll-fade-in">
+                        <div class="about-illustration">
+                            <div class="illustration-circle circle-1">🏘️</div>
+                            <div class="illustration-line"></div>
+                            <div class="illustration-circle circle-2">🏙️</div>
+                        </div>
+                    </div>
+                    <div class="about-text scroll-fade-in-right">
+                        <h2 class="section-title">About BiGeo</h2>
+                        <p class="section-description">
+                            BiGeo is revolutionizing rural commerce by connecting talented MSME producers with eager urban customers. 
+                            We empower rural artisans, craftspeople, and small manufacturers to reach nationwide markets.
+                        </p>
+                        <p class="section-description">
+                            Through our integrated logistics network, we ensure products move seamlessly from village workshops to city doorsteps.
+                        </p>
+                        <div class="stats-counter">
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="500">0</div>
+                                <div class="stat-text">Rural Producers</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="10000">0</div>
+                                <div class="stat-text">Products Delivered</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="50">0</div>
+                                <div class="stat-text">Villages Connected</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="15">0</div>
+                                <div class="stat-text">Urban Cities Served</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section services-section">
+            <div class="container">
+                <h2 class="section-title centered">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card scroll-stagger" style="--delay: 0">
+                        <div class="service-icon">📍</div>
+                        <h3 class="service-title">Rural Collection Network</h3>
+                        <p class="service-description">Pickup from your doorstep in remote villages</p>
+                    </div>
+                    <div class="service-card scroll-stagger" style="--delay: 1">
+                        <div class="service-icon">✓</div>
+                        <h3 class="service-title">Quality Assurance</h3>
+                        <p class="service-description">Expert quality checks at regional hubs</p>
+                    </div>
+                    <div class="service-card scroll-stagger" style="--delay: 2">
+                        <div class="service-icon">🚚</div>
+                        <h3 class="service-title">Secure Logistics</h3>
+                        <p class="service-description">GPS-tracked delivery with real-time updates</p>
+                    </div>
+                    <div class="service-card scroll-stagger" style="--delay: 3">
+                        <div class="service-icon">💰</div>
+                        <h3 class="service-title">Escrow Protection</h3>
+                        <p class="service-description">Payment released at delivery milestones</p>
+                    </div>
+                    <div class="service-card scroll-stagger" style="--delay: 4">
+                        <div class="service-icon">🛒</div>
+                        <h3 class="service-title">Digital Marketplace</h3>
+                        <p class="service-description">Online storefront for rural products</p>
+                    </div>
+                    <div class="service-card scroll-stagger" style="--delay: 5">
+                        <div class="service-icon">🌐</div>
+                        <h3 class="service-title">Multilingual Support</h3>
+                        <p class="service-description">English &amp; Telugu interface</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Showcase Section -->
+        <section id="products-showcase" class="section products-showcase-section">
+            <div class="container">
+                <h2 class="section-title centered">Featured Products from Rural MSMEs</h2>
+                <div class="products-carousel">
+                    <button class="carousel-btn carousel-btn--prev" onclick="scrollCarousel(-1)">‹</button>
+                    <div class="products-carousel-track" id="products-carousel">
+                        <!-- Products will be dynamically inserted here -->
+                    </div>
+                    <button class="carousel-btn carousel-btn--next" onclick="scrollCarousel(1)">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="section how-it-works-section">
+            <div class="container">
+                <h2 class="section-title centered">How BiGeo Works</h2>
+                <div class="timeline-flow">
+                    <div class="flow-step scroll-fade-in" style="--delay: 0">
+                        <div class="flow-icon" style="background: var(--color-bg-1);">1</div>
+                        <h3 class="flow-title">Producer Registers</h3>
+                        <p class="flow-description">Rural MSME lists products on platform</p>
+                    </div>
+                    <div class="flow-connector"></div>
+                    <div class="flow-step scroll-fade-in" style="--delay: 1">
+                        <div class="flow-icon" style="background: var(--color-bg-2);">2</div>
+                        <h3 class="flow-title">Customer Orders</h3>
+                        <p class="flow-description">Urban customer places order online</p>
+                    </div>
+                    <div class="flow-connector"></div>
+                    <div class="flow-step scroll-fade-in" style="--delay: 2">
+                        <div class="flow-icon" style="background: var(--color-bg-3);">3</div>
+                        <h3 class="flow-title">RCA Collects</h3>
+                        <p class="flow-description">Local agent picks up from producer</p>
+                    </div>
+                    <div class="flow-connector"></div>
+                    <div class="flow-step scroll-fade-in" style="--delay: 3">
+                        <div class="flow-icon" style="background: var(--color-bg-4);">4</div>
+                        <h3 class="flow-title">Hub Processes</h3>
+                        <p class="flow-description">Quality check and sorting at regional hub</p>
+                    </div>
+                    <div class="flow-connector"></div>
+                    <div class="flow-step scroll-fade-in" style="--delay: 4">
+                        <div class="flow-icon" style="background: var(--color-bg-5);">5</div>
+                        <h3 class="flow-title">Delivery</h3>
+                        <p class="flow-description">Product delivered to customer's door</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section testimonials-section">
+            <div class="container">
+                <h2 class="section-title centered">What Our Community Says</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card scroll-slide-in" style="--delay: 0">
+                        <div class="testimonial-avatar">L</div>
+                        <p class="testimonial-text">
+                            "BiGeo helped me reach customers across India. My handloom sarees are now appreciated nationwide!"
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>Lakshmi Devi</strong>
+                            <span>Handloom Weaver, Raghavapuram</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card scroll-slide-in" style="--delay: 1">
+                        <div class="testimonial-avatar">A</div>
+                        <p class="testimonial-text">
+                            "I love supporting rural artisans directly. The quality is authentic and the platform is so easy to use!"
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>Arjun</strong>
+                            <span>Customer, Hyderabad</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card scroll-slide-in" style="--delay: 2">
+                        <div class="testimonial-avatar">R</div>
+                        <p class="testimonial-text">
+                            "Proud to serve my village community. BiGeo provides steady work and helps our local producers thrive."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>Ramesh</strong>
+                            <span>Collection Agent, Kondapalli</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="role-selection" class="section cta-section">
+            <div class="container">
+                <h2 class="section-title centered" style="color: white;">Join the BiGeo Revolution</h2>
+                <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: var(--space-32); font-size: var(--font-size-lg);">Choose your role to get started</p>
+                <div class="role-selection-grid">
+                    <button class="role-card" data-role="producer">
+                        <span class="role-icon">🏺</span>
+                        <span class="role-label">Producer Dashboard</span>
+                        <span class="role-label-te">ఉత్పత్తిదారు డాష్‌బోర్డ్</span>
+                        <span class="role-description">Register &amp; track your handcrafted products</span>
+                    </button>
+                    <button class="role-card" data-role="rca">
+                        <span class="role-icon">🚚</span>
+                        <span class="role-label">RCA Dashboard</span>
+                        <span class="role-label-te">RCA డాష్‌బోర్డ్</span>
+                        <span class="role-description">Collect products from villages</span>
+                    </button>
+                    <button class="role-card" data-role="hub">
+                        <span class="role-icon">🏢</span>
+                        <span class="role-label">Hub Operator Dashboard</span>
+                        <span class="role-label-te">హబ్ ఆపరేటర్ డాష్‌బోర్డ్</span>
+                        <span class="role-description">Quality control &amp; sorting</span>
+                    </button>
+                    <button class="role-card" data-role="consumer">
+                        <span class="role-icon">🛍️</span>
+                        <span class="role-label">Consumer Dashboard</span>
+                        <span class="role-label-te">కస్టమర్ డాష్‌బోర్డ్</span>
+                        <span class="role-description">Shop authentic rural products</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3 class="footer-logo">BiGeo</h3>
+                        <p class="footer-tagline">Connecting Rural Excellence with Urban Markets</p>
+                        <div class="footer-social">
+                            <a href="#" class="social-icon">📘</a>
+                            <a href="#" class="social-icon">📷</a>
+                            <a href="#" class="social-icon">🐦</a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <a href="#about">About</a>
+                        <a href="#services">Services</a>
+                        <a href="#products-showcase">Products</a>
+                        <a href="#how-it-works">How It Works</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>For Producers</h4>
+                        <a href="#" onclick="showDashboard('producer')">Register</a>
+                        <a href="#" onclick="showDashboard('producer')">Dashboard</a>
+                        <a href="#">Resources</a>
+                        <a href="#">Support</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>For Customers</h4>
+                        <a href="#" onclick="showDashboard('consumer')">Shop</a>
+                        <a href="#" onclick="showDashboard('consumer')">Track Order</a>
+                        <a href="#">Help</a>
+                        <a href="#">FAQs</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 BiGeo. All rights reserved.</p>
+                    <p>Contact: support@bigeo.in | +91 98765 00000</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <!-- Producer Dashboard -->
+    <section id="producer-dashboard" class="dashboard" style="display: none;">
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card__header">
+                    <h2 data-translate="register-product">Register Product</h2>
+                </div>
+                <div class="card__body">
+                    <form id="register-product-form">
+                        <div class="form-group">
+                            <label class="form-label" data-translate="product-name">Product Name</label>
+                            <input type="text" class="form-control" id="prod-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-translate="quantity">Quantity</label>
+                            <input type="text" class="form-control" id="prod-quantity" placeholder="e.g., 50 kg" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-translate="category">Category</label>
+                            <select class="form-control" id="prod-category" required>
+                                <option value="Handloom Textiles">Handloom Textiles</option>
+                                <option value="Bamboo Crafts">Bamboo Crafts</option>
+                                <option value="Spices & Food Products">Spices &amp; Food Products</option>
+                                <option value="Pottery & Ceramics">Pottery &amp; Ceramics</option>
+                                <option value="Handmade Jewelry">Handmade Jewelry</option>
+                                <option value="Wooden Handicrafts">Wooden Handicrafts</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-translate="quality-grade">Quality Grade</label>
+                            <select class="form-control" id="prod-grade" required>
+                                <option value="A">Grade A</option>
+                                <option value="B">Grade B</option>
+                                <option value="C">Grade C</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-translate="location">Location</label>
+                            <select class="form-control" id="prod-location" required>
+                                <option value="Raghavapuram">Raghavapuram</option>
+                                <option value="Peddapur">Peddapur</option>
+                                <option value="Kondapalli">Kondapalli</option>
+                                <option value="Muppavarapu">Muppavarapu</option>
+                                <option value="Nadukuru">Nadukuru</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-translate="pickup-date">Expected Pickup Date</label>
+                            <input type="date" class="form-control" id="prod-date" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width" data-translate="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2 data-translate="my-products">My Products</h2>
+                </div>
+                <div class="card__body">
+                    <div id="producer-products-list" class="products-list"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2 data-translate="track-shipment">Track Shipment</h2>
+                </div>
+                <div class="card__body">
+                    <div class="status-timeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <strong>Registered</strong>
+                                <span>Product registered</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <strong>RCA Pickup</strong>
+                                <span>Collection in progress</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <strong>Hub Processing</strong>
+                                <span>Quality check</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <strong>In Transit</strong>
+                                <span>En route to city</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <strong>Delivered</strong>
+                                <span>Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="producer-map" class="map-container"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Escrow Status</h2>
+                </div>
+                <div class="card__body">
+                    <div id="producer-escrow" class="escrow-visualization"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RCA Dashboard -->
+    <section id="rca-dashboard" class="dashboard" style="display: none;">
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Pending Pickups</h2>
+                    <div class="filter-controls">
+                        <select class="form-control form-control--sm" id="rca-filter-village">
+                            <option value="">All Villages</option>
+                            <option value="Raghavapuram">Raghavapuram</option>
+                            <option value="Peddapur">Peddapur</option>
+                            <option value="Kondapalli">Kondapalli</option>
+                            <option value="Muppavarapu">Muppavarapu</option>
+                            <option value="Nadukuru">Nadukuru</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div id="rca-pending-list" class="pending-list"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>QR Scanner</h2>
+                </div>
+                <div class="card__body">
+                    <div class="qr-scanner-controls">
+                        <button class="btn btn--primary" id="rca-scan-qr">📷 Scan QR Code</button>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">Or Enter Product ID</label>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" class="form-control" id="rca-manual-id" placeholder="BG-PROD-XXXX">
+                                <button class="btn btn--secondary" id="rca-manual-submit">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rca-scan-result" class="scan-result"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Create Dispatch</h2>
+                </div>
+                <div class="card__body">
+                    <form id="create-dispatch-form">
+                        <div class="form-group">
+                            <label class="form-label">Select Products (comma-separated IDs)</label>
+                            <input type="text" class="form-control" id="dispatch-products" placeholder="BG-PROD-0001, BG-PROD-0002" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Assign to Hub</label>
+                            <select class="form-control" id="dispatch-hub" required>
+                                <option value="Vijayawada Hub">Vijayawada Hub</option>
+                                <option value="Guntur Hub">Guntur Hub</option>
+                                <option value="Eluru Hub">Eluru Hub</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Vehicle Type</label>
+                            <select class="form-control" id="dispatch-vehicle" required>
+                                <option value="Truck">Truck</option>
+                                <option value="Van">Van</option>
+                                <option value="Tempo">Tempo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Driver Name</label>
+                            <input type="text" class="form-control" id="dispatch-driver" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Expected Arrival Time</label>
+                            <input type="datetime-local" class="form-control" id="dispatch-eta" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Create Dispatch</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Collection Summary</h2>
+                </div>
+                <div class="card__body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="rca-collected">0</div>
+                            <div class="stat-label">Collected Today</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="rca-pending">0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="rca-dispatches">0</div>
+                            <div class="stat-label">Dispatches Created</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hub Operator Dashboard -->
+    <section id="hub-dashboard" class="dashboard" style="display: none;">
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Incoming Shipments</h2>
+                </div>
+                <div class="card__body">
+                    <div id="hub-incoming-list" class="incoming-list"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>QC Scoring</h2>
+                </div>
+                <div class="card__body">
+                    <form id="qc-form">
+                        <div class="form-group">
+                            <label class="form-label">Select Product</label>
+                            <select class="form-control" id="qc-product" required>
+                                <option value="">Select a product...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Appearance (1-10)</label>
+                            <input type="number" class="form-control" id="qc-appearance" min="1" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Freshness (1-10)</label>
+                            <input type="number" class="form-control" id="qc-freshness" min="1" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Packaging (1-10)</label>
+                            <input type="number" class="form-control" id="qc-packaging" min="1" max="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Overall Grade</label>
+                            <select class="form-control" id="qc-grade" required>
+                                <option value="Excellent">Excellent</option>
+                                <option value="Good">Good</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Poor">Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" id="qc-notes" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Submit QC Score</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Sort &amp; Forward</h2>
+                </div>
+                <div class="card__body">
+                    <form id="forward-form">
+                        <div class="form-group">
+                            <label class="form-label">Destination City</label>
+                            <select class="form-control" id="forward-city" required>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Visakhapatnam">Visakhapatnam</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Products (comma-separated IDs)</label>
+                            <input type="text" class="form-control" id="forward-products" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Transport Vehicle</label>
+                            <input type="text" class="form-control" id="forward-vehicle" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Create Outbound Batch</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Hub Status</h2>
+                </div>
+                <div class="card__body">
+                    <div id="hub-map" class="map-container" style="height: 300px;"></div>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label class="form-label">Storage Capacity</label>
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill" style="width: 65%;">65%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consumer Dashboard -->
+    <section id="consumer-dashboard" class="dashboard" style="display: none;">
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card__header">
+                    <h2>Available Products</h2>
+                    <div class="filter-controls">
+                        <select class="form-control form-control--sm" id="consumer-filter-category">
+                            <option value="">All Categories</option>
+                            <option value="Handloom Textiles">Handloom Textiles</option>
+                            <option value="Bamboo Crafts">Bamboo Crafts</option>
+                            <option value="Spices & Food Products">Spices &amp; Food</option>
+                            <option value="Pottery & Ceramics">Pottery &amp; Ceramics</option>
+                            <option value="Handmade Jewelry">Jewelry</option>
+                            <option value="Wooden Handicrafts">Wooden Handicrafts</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card__body">
+                    <div id="consumer-products-grid" class="products-grid"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>My Orders</h2>
+                </div>
+                <div class="card__body">
+                    <div id="consumer-orders-list" class="orders-list"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Live Route Tracking</h2>
+                </div>
+                <div class="card__body">
+                    <div id="consumer-map" class="map-container"></div>
+                    <div class="delivery-info" style="margin-top: 1rem;">
+                        <p><strong>Driver:</strong> <span id="driver-name">Vijay Kumar</span></p>
+                        <p><strong>Contact:</strong> <span id="driver-phone">+91 98765 00000</span></p>
+                        <p><strong>ETA:</strong> <span id="delivery-eta">25 minutes</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__header">
+                    <h2>Delivery Confirmation</h2>
+                </div>
+                <div class="card__body">
+                    <form id="delivery-confirm-form">
+                        <div class="form-group">
+                            <label class="form-label">Order ID</label>
+                            <input type="text" class="form-control" id="confirm-order-id" placeholder="BG-ORD-XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn--secondary" id="consumer-scan-qr">📷 Scan Delivery QR</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Rate Quality (1-5 stars)</label>
+                            <div class="star-rating" id="consumer-rating">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="rating-value" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Feedback</label>
+                            <textarea class="form-control" id="confirm-feedback" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Confirm Delivery</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Scanner Modal -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Scan QR Code</h2>
+                <button class="modal-close" id="qr-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="qr-scanner-view">
+                    <div class="camera-frame">
+                        <div class="scan-line"></div>
+                        <p>Camera View</p>
+                    </div>
+                </div>
+                <div class="qr-scanner-options">
+                    <button class="btn btn--primary" id="qr-use-camera">Use Camera</button>
+                    <input type="file" id="qr-upload" accept="image/*" style="display: none;">
+                    <button class="btn btn--secondary" id="qr-upload-btn">Upload Image</button>
+                </div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label class="form-label">Or Enter Manually</label>
+                    <input type="text" class="form-control" id="qr-manual-input" placeholder="Enter ID">
+                    <button class="btn btn--secondary" id="qr-manual-btn" style="margin-top: 0.5rem; width: 100%;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
